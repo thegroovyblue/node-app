@@ -53,7 +53,7 @@ export const update = async(req, res) => {
     }
 }
 
-//export const deleteEmployee = async(req, res) => {
+// export const deleteEmployee = async(req, res) => {
 //    try {
 //        const id = req.params.id
 //        const employeeExist = await Employee.findOne({ _id: id })
@@ -63,6 +63,20 @@ export const update = async(req, res) => {
 //        }
 //        await Employee.findByIdAndDelete(id)
 //        res.status(205).json({ message: "Employee deleted successfully" })
-//   } catch (error) {
+//    } catch (error) {
 //        res.status(501).json({ error: "Internal Server Error" })
 //    }
+// }
+
+export const findEmployee = async(req, res) => {
+    try {
+        const id = req.params.id
+        const employeeExist = await Employee.findOne({ _id: id })
+        if(!employeeExist) {
+            return res.status(404).json({ error: "Employee not found" })
+        }
+        res.status(200).json(employeeExist)
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" })
+    }
+}
